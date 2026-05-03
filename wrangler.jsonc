@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "sample-site",
+  "name": "irodoor",
   "compatibility_date": "2026-05-02",
   "workers_dev": true,
   "preview_urls": false,
@@ -16,7 +16,7 @@
   },
   "env": {
     "production": {
-      "name": "libe-hp",
+      "name": "irodoor",
       "preview_urls": false
     }
   }
