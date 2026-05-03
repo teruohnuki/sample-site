@@ -1,16 +1,10 @@
 ---
-import { getCollection } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
-import FormattedDate from "../components/FormattedDate.astro";
 import Header from "../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 
 export const prerender = true;
-
-const posts = (await getCollection("blog"))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 5);
 ---
 
 <!doctype html>
@@ -24,102 +18,264 @@ const posts = (await getCollection("blog"))
   </head>
   <body>
     <Header />
+
     <main>
-      <section class="intro">
-        <h1 class="site-name">{SITE_TITLE}</h1>
-        <p class="bio">{SITE_DESCRIPTION}</p>
+      <!-- Hero -->
+      <section class="hero">
+        <p class="hero-label">IRODOOR</p>
+        <h1 class="hero-title">
+          イロドアの<br>
+          ビジネスを<br>
+          ご紹介します。
+        </h1>
+        <p class="hero-sub">
+          法人イロドアが手がける事業と、私たちが目指すビジョンをお伝えします。
+        </p>
       </section>
 
-      <section class="recent-posts">
-        <p class="section-label">最近の投稿</p>
-        <ul class="post-list">
-          {posts.map((post) => (
-						<li class="post-item">
-							<a href={`/blog/${post.id}/`}>
-								<span class="post-title">{post.data.title}</span>
-								<span class="post-date"><FormattedDate date={post.data.pubDate} /></span>
-							</a>
-						</li>
-					))}
-        </ul>
-        <a href="/blog" class="all-posts">すべての投稿を見る →</a>
+      <!-- About -->
+      <section class="about">
+        <div class="section-inner">
+          <p class="tag">ABOUT</p>
+          <h2 class="section-title">イロドアについて</h2>
+          <p class="section-text">
+            イロドアは、お客様の日常に彩りを届けることを理念に掲げた法人です。<br>
+            多様な事業を通じて、人々の暮らしとビジネスに新しい価値を創出しています。
+          </p>
+        </div>
+      </section>
+
+      <!-- Business -->
+      <section class="business">
+        <div class="section-inner">
+          <p class="tag">BUSINESS</p>
+          <h2 class="section-title">事業内容</h2>
+          <ul class="card-list">
+            <li class="card">
+              <div
+                class="card-img"
+                style="background-image: url('/house-mono.jpg')"
+              ></div>
+              <div class="card-body">
+                <p class="card-num">01</p>
+                <h3 class="card-title">ホスピタリティコンサルティング事業</h3>
+                <p class="card-text">
+                  美容サロン・小売店等のサービス業に対し、店舗オペレーション改善・人材育成・顧客満足度向上を目的としたコンサルティングを提供。20年以上の現場経験と、店長・チーフとしてのマネジメント実績に裏付けられた実践的なノウハウが強みです。
+                </p>
+              </div>
+            </li>
+            <li class="card">
+              <div
+                class="card-img"
+                style="background-image: url('/house-modern.jpg')"
+              ></div>
+              <div class="card-body">
+                <p class="card-num">02</p>
+                <h3 class="card-title">不動産サブリース事業</h3>
+                <p class="card-text">
+                  住居用・事業用不動産のサブリース（転貸）および管理運営を行います。経営の多角化を図り、安定した収益基盤を構築することを目的としています。
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Contact CTA -->
+      <section class="contact">
+        <div class="section-inner">
+          <p class="tag">CONTACT</p>
+          <h2 class="section-title">お問い合わせ</h2>
+          <p class="section-text">
+            事業に関するご質問・ご相談はお気軽にどうぞ。
+          </p>
+          <a href="mailto:irodoor2024@gmail.com" class="cta-btn"
+            >メールで問い合わせる</a
+          >
+        </div>
       </section>
     </main>
+
     <Footer />
   </body>
 </html>
 
 <style>
+/* ページ全体をダーク化 */
+:global(html) {
+  background: #0a0a0a;
+}
+:global(body) {
+  background: #0a0a0a;
+  color: #e8e8e8;
+}
+:global(:root) {
+  --header-bg: #0a0a0a;
+  --header-border: rgba(255, 255, 255, 0.08);
+  --header-text: #fff;
+  --nav-text: rgba(255, 255, 255, 0.6);
+  --nav-text-active: #fff;
+  --nav-accent: #7c6fff;
+}
+
 main {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 4rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-}
-.site-name {
-  font-size: 1.75rem;
-  margin: 0 0 0.75rem 0;
-  font-weight: 700;
-  line-height: 1.2;
-}
-.bio {
-  margin: 0;
-  color: rgb(var(--gray-dark));
-  line-height: 1.7;
-  font-size: 1rem;
-}
-.section-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgb(var(--gray));
-  margin: 0 0 1rem 0;
-}
-.post-list {
-  list-style: none;
+  width: 100%;
+  max-width: 100%;
   margin: 0;
   padding: 0;
 }
-.post-item {
-  list-style: none;
-}
-.post-item a {
+
+/* Hero */
+.hero {
+  min-height: 90vh;
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid rgb(var(--gray-light));
-  text-decoration: none;
-  color: rgb(var(--black));
-  transition: color 0.15s;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6rem 2rem;
+  max-width: 960px;
+  margin: 0 auto;
 }
-.post-item:first-child a {
-  border-top: 1px solid rgb(var(--gray-light));
+.hero-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: #7c6fff;
+  margin: 0 0 2rem 0;
 }
-.post-item a:hover {
-  color: rgb(var(--accent));
+.hero-title {
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: #fff;
+  margin: 0 0 2rem 0;
+  letter-spacing: -0.02em;
 }
-.post-title {
-  font-size: 0.95rem;
+.hero-sub {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  max-width: 480px;
 }
-.post-date {
-  font-size: 0.8rem;
-  color: rgb(var(--gray));
-  white-space: nowrap;
-  flex-shrink: 0;
+
+/* Sections */
+.about,
+.business,
+.contact {
+  padding: 6rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
-.all-posts {
+.section-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #7c6fff;
+  margin: 0 0 1.25rem 0;
+}
+.section-title {
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 1.5rem 0;
+  letter-spacing: -0.01em;
+}
+.section-text {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  max-width: 560px;
+}
+
+/* Business cards */
+.card-list {
+  list-style: none;
+  margin: 3rem 0 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.card:hover {
+  border-color: rgba(124, 111, 255, 0.4);
+}
+.card-img {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+.card-body {
+  padding: 1.75rem;
+}
+.card-num {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #7c6fff;
+  margin: 0 0 1rem 0;
+}
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.75rem 0;
+}
+.card-text {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+/* Contact CTA */
+.cta-btn {
   display: inline-block;
-  margin-top: 1.25rem;
-  font-size: 0.875rem;
-  color: rgb(var(--accent));
+  margin-top: 2rem;
+  padding: 0.85rem 2rem;
+  background: #7c6fff;
+  color: #fff;
   text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: background 0.2s;
+  letter-spacing: 0.02em;
 }
-.all-posts:hover {
-  text-decoration: underline;
+.cta-btn:hover {
+  background: #6457e8;
+  color: #fff;
+}
+
+:global(:root) {
+  --footer-bg: #0a0a0a;
+  --footer-border: rgba(255, 255, 255, 0.06);
+  --footer-text: rgba(255, 255, 255, 0.35);
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 4rem 1.25rem;
+    min-height: 80vh;
+  }
+  .about,
+  .business,
+  .contact {
+    padding: 4rem 1.25rem;
+  }
+  .card-list {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

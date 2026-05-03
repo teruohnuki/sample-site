@@ -10,6 +10,8 @@ import PagefindSearch from "./PagefindSearch.astro";
       <a href="/" class="site-title">{SITE_TITLE}</a>
       <div class="nav-links">
         <HeaderLink href="/">トップ</HeaderLink>
+        <HeaderLink href="/company">会社概要</HeaderLink>
+        <HeaderLink href="/about">代表紹介</HeaderLink>
         <HeaderLink href="/blog">ブログ</HeaderLink>
       </div>
     </div>
@@ -21,8 +23,8 @@ import PagefindSearch from "./PagefindSearch.astro";
 header {
   margin: 0;
   padding: 0 1.5em;
-  background: white;
-  border-bottom: 1px solid rgb(var(--gray-light));
+  background: var(--header-bg, white);
+  border-bottom: 1px solid var(--header-border, rgb(var(--gray-light)));
 }
 nav {
   display: flex;
@@ -43,7 +45,7 @@ nav {
 .site-title {
   font-weight: 700;
   font-size: 1rem;
-  color: rgb(var(--black));
+  color: var(--header-text, rgb(var(--black)));
   text-decoration: none;
   letter-spacing: 0.02em;
 }
@@ -54,18 +56,18 @@ nav {
 }
 .nav-links a {
   padding: 0.5em 0.75em;
-  color: rgb(var(--gray-dark));
+  color: var(--nav-text, rgb(var(--gray-dark)));
   border-bottom: 2px solid transparent;
   text-decoration: none;
   font-size: 0.95rem;
   transition: color 0.15s;
 }
 .nav-links a:hover {
-  color: rgb(var(--black));
+  color: var(--nav-text-active, rgb(var(--black)));
 }
 .nav-links a.active {
-  color: rgb(var(--black));
-  border-bottom-color: rgb(var(--accent));
+  color: var(--nav-text-active, rgb(var(--black)));
+  border-bottom-color: var(--nav-accent, rgb(var(--accent)));
 }
 .search-wrap {
   position: relative;
