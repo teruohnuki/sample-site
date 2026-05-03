@@ -22,7 +22,7 @@ export const prerender = true;
       <!-- Hero -->
       <section class="hero">
         <p class="hero-label">REPRESENTATIVE</p>
-        <h1 class="hero-name">大貫 理</h1>
+        <h1 class="hero-name"><span class="name-cursive">Aya Ohnuki</span></h1>
         <p class="hero-title">代表取締役 / 株式会社イロドア</p>
         <p class="hero-bio">
           アパレル及び美容業界において20年以上にわたり、プレイヤー・指導者・経営者の視点から実績を積む。2024年、株式会社イロドアを設立。ホスピタリティコンサルティング事業と不動産サブリース事業の二軸で事業を推進している。
@@ -137,6 +137,7 @@ export const prerender = true;
 </html>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
 :global(html) {
   background: #0a0a0a;
 }
@@ -181,8 +182,12 @@ main {
   font-weight: 700;
   color: #fff;
   margin: 0 0 0.5rem 0;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: 1.2;
+}
+.name-cursive {
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
 .hero-title {
   font-size: 0.95rem;

@@ -22,14 +22,17 @@ export const prerender = true;
     <main>
       <!-- Hero -->
       <section class="hero">
-        <p class="hero-label">IRODOOR</p>
-        <h1 class="hero-title">
-          イロドアの<br>
-          ビジネス
-        </h1>
-        <p class="hero-sub">
-          法人イロドアが手がける事業と、私たちが目指すビジョンをお伝えします。
-        </p>
+        <div class="hero-logo"><img src="/logo.png" alt="irodoor"></div>
+        <div class="hero-content">
+          <p class="hero-label">IRODOOR</p>
+          <h1 class="hero-title">
+            イロドアの<br>
+            ビジネス
+          </h1>
+          <p class="hero-sub">
+            イロドアの事業と、私たちが目指すビジョンをお伝えします。
+          </p>
+        </div>
       </section>
 
       <!-- About -->
@@ -38,8 +41,7 @@ export const prerender = true;
           <p class="tag">ABOUT</p>
           <h2 class="section-title">イロドアについて</h2>
           <p class="section-text">
-            イロドアは、お客様の日常に彩りを届けることを理念に掲げた法人です。<br>
-            多様な事業を通じて、人々の暮らしとビジネスに新しい価値を創出しています。
+            昨日までと同じ景色が、もっと色鮮やかに見えたなら。不可能だと思っていた扉が、目の前で開いたなら。株式会社イロドアは、あなたの日常に彩りを与え、新たな挑戦への扉を開くパートナーです。
           </p>
         </div>
       </section>
@@ -128,11 +130,25 @@ main {
 .hero {
   min-height: 90vh;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  gap: 4rem;
   padding: 6rem 2rem;
   max-width: 960px;
   margin: 0 auto;
+}
+.hero-logo {
+  flex: 0 0 auto;
+  width: clamp(120px, 18vw, 200px);
+}
+.hero-logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.hero-content {
+  display: flex;
+  flex-direction: column;
 }
 .hero-label {
   font-size: 0.75rem;
@@ -196,7 +212,7 @@ main {
   margin: 3rem 0 0 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 }
 .card {
@@ -265,8 +281,14 @@ main {
 
 @media (max-width: 640px) {
   .hero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
     padding: 4rem 1.25rem;
     min-height: 80vh;
+  }
+  .hero-logo {
+    width: clamp(80px, 30vw, 120px);
   }
   .about,
   .business,
