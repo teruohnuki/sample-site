@@ -18,11 +18,18 @@ export const prerender = true;
   <body>
     <Header />
 
+    <div class="bg-glow" aria-hidden="true">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="glow glow-3"></div>
+    </div>
+
     <main>
       <!-- Hero -->
       <section class="hero">
         <p class="hero-label">REPRESENTATIVE</p>
         <h1 class="hero-name"><span class="name-cursive">Aya Ohnuki</span></h1>
+        <div class="name-accent"></div>
         <p class="hero-title">代表取締役 / 株式会社イロドア</p>
         <p class="hero-bio">
           アパレル及び美容業界において20年以上にわたり、プレイヤー・指導者・経営者の視点から実績を積む。2024年、株式会社イロドアを設立。ホスピタリティコンサルティング事業と不動産サブリース事業の二軸で事業を推進している。
@@ -31,6 +38,7 @@ export const prerender = true;
 
       <!-- Career Timeline -->
       <section class="section">
+        <div class="grad-line"></div>
         <div class="section-inner">
           <p class="tag">CAREER</p>
           <h2 class="section-title">職務経歴</h2>
@@ -81,6 +89,7 @@ export const prerender = true;
 
       <!-- Skills -->
       <section class="section">
+        <div class="grad-line"></div>
         <div class="section-inner">
           <p class="tag">SKILLS</p>
           <h2 class="section-title">専門スキルと経験</h2>
@@ -103,6 +112,7 @@ export const prerender = true;
 
       <!-- Qualifications -->
       <section class="section">
+        <div class="grad-line"></div>
         <div class="section-inner">
           <p class="tag">QUALIFICATIONS</p>
           <h2 class="section-title">保有資格</h2>
@@ -137,87 +147,180 @@ export const prerender = true;
 </html>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Bodoni+Moda:ital,opsz@0,6..96;1,6..96&display=swap");
+
 :global(html) {
-  background: #0a0a0a;
+  background: #080808;
 }
 :global(body) {
-  background: #0a0a0a;
-  color: #e8e8e8;
+  background: #080808;
+  color: #f0ece4;
 }
 :global(:root) {
-  --header-bg: #0a0a0a;
-  --header-border: rgba(255, 255, 255, 0.08);
+  --header-bg: #080808;
+  --header-border: rgba(255, 255, 255, 0.06);
   --header-text: #fff;
-  --nav-text: rgba(255, 255, 255, 0.6);
+  --nav-text: rgba(255, 255, 255, 0.5);
   --nav-text-active: #fff;
-  --nav-accent: #7c6fff;
-  --footer-bg: #0a0a0a;
-  --footer-border: rgba(255, 255, 255, 0.06);
-  --footer-text: rgba(255, 255, 255, 0.35);
+  --nav-accent: #ec4899;
+  --footer-bg: #080808;
+  --footer-border: rgba(255, 255, 255, 0.05);
+  --footer-text: rgba(255, 255, 255, 0.28);
+}
+
+/* Background glow orbs */
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(110px);
+}
+.glow-1 {
+  width: 500px;
+  height: 500px;
+  background: #6366f1;
+  opacity: 0.07;
+  top: -150px;
+  left: -100px;
+}
+.glow-2 {
+  width: 400px;
+  height: 400px;
+  background: #ec4899;
+  opacity: 0.06;
+  top: 40%;
+  right: -100px;
+}
+.glow-3 {
+  width: 350px;
+  height: 350px;
+  background: #f97316;
+  opacity: 0.05;
+  bottom: 10%;
+  left: 20%;
 }
 
 main {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 100%;
   margin: 0;
   padding: 0;
 }
 
+/* Gradient divider */
+.grad-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(249, 115, 22, 0.4) 25%,
+    rgba(236, 72, 153, 0.4) 50%,
+    rgba(99, 102, 241, 0.4) 75%,
+    transparent
+  );
+}
+
+/* Entrance animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Hero */
 .hero {
-  padding: 7rem 2rem 6rem;
+  padding: 7rem 2rem 5rem;
   max-width: 960px;
   margin: 0 auto;
 }
 .hero-label {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  color: #7c6fff;
-  margin: 0 0 2rem 0;
+  font-family: "Bodoni Moda", serif;
+  font-style: italic;
+  font-size: 0.82rem;
+  letter-spacing: 0.22em;
+  background: linear-gradient(135deg, #f97316, #ec4899, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* biome-ignore lint/nursery/useBaseline: gradient text is widely supported */
+  background-clip: text;
+  margin: 0 0 1.75rem 0;
+  display: inline-block;
+  animation: fadeUp 1s ease both;
 }
 .hero-name {
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-size: clamp(3rem, 10vw, 6rem);
   font-weight: 700;
   color: #fff;
-  margin: 0 0 0.5rem 0;
-  line-height: 1.2;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.1;
+  animation: fadeUp 1s ease both;
+  animation-delay: 0.12s;
 }
 .name-cursive {
   font-family: "Great Vibes", cursive;
   font-weight: 400;
   letter-spacing: 0.02em;
 }
+.name-accent {
+  width: 64px;
+  height: 2px;
+  background: linear-gradient(90deg, #f97316, #ec4899, #6366f1);
+  margin: 0.75rem 0 1.5rem;
+  border-radius: 999px;
+  animation: fadeUp 1s ease both;
+  animation-delay: 0.22s;
+}
 .hero-title {
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.38);
   margin: 0 0 2rem 0;
   letter-spacing: 0.04em;
+  animation: fadeUp 1s ease both;
+  animation-delay: 0.3s;
 }
 .hero-bio {
   font-size: 1rem;
   line-height: 1.9;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.52);
   margin: 0;
   max-width: 600px;
+  animation: fadeUp 1s ease both;
+  animation-delay: 0.42s;
 }
 
 /* Sections */
 .section {
   padding: 5rem 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 .section-inner {
   max-width: 960px;
   margin: 0 auto;
 }
 .tag {
-  font-size: 0.7rem;
-  font-weight: 700;
+  font-family: "Bodoni Moda", serif;
+  font-style: italic;
+  font-size: 0.82rem;
   letter-spacing: 0.22em;
-  color: #7c6fff;
+  background: linear-gradient(135deg, #f97316, #ec4899, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* biome-ignore lint/nursery/useBaseline: gradient text is widely supported */
+  background-clip: text;
   margin: 0 0 1.25rem 0;
+  display: inline-block;
 }
 .section-title {
   font-size: clamp(1.5rem, 4vw, 2.2rem);
@@ -231,28 +334,64 @@ main {
 .timeline {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 0;
+  position: relative;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(249, 115, 22, 0.5),
+    rgba(236, 72, 153, 0.5),
+    rgba(99, 102, 241, 0.5)
+  );
 }
 .tl-item {
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 2rem;
   padding: 2rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+.tl-item::before {
+  content: "";
+  position: absolute;
+  left: -1.25rem;
+  top: 2.4rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f97316, #ec4899);
+  transform: translateX(-3px);
+  box-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
 }
 .tl-item:last-child {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 .tl-period {
-  font-size: 0.8rem;
-  color: #7c6fff;
+  font-family: "Bodoni Moda", serif;
+  font-style: italic;
+  font-size: 0.78rem;
+  background: linear-gradient(135deg, #f97316, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* biome-ignore lint/nursery/useBaseline: gradient text is widely supported */
+  background-clip: text;
   font-weight: 600;
   margin: 0;
   padding-top: 0.2rem;
   letter-spacing: 0.02em;
+  display: inline-block;
+  align-self: start;
 }
 .tl-body {
   display: flex;
@@ -261,7 +400,7 @@ main {
 }
 .tl-company {
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.38);
   margin: 0;
 }
 .tl-role {
@@ -273,7 +412,7 @@ main {
 .tl-desc {
   font-size: 0.88rem;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.45);
   margin: 0.25rem 0 0 0;
 }
 
@@ -287,10 +426,25 @@ main {
   gap: 1.5rem;
 }
 .skill-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
+  background:
+    linear-gradient(#0d0d0d, #0d0d0d) padding-box,
+    linear-gradient(
+      135deg,
+      rgba(249, 115, 22, 0.22),
+      rgba(236, 72, 153, 0.22),
+      rgba(99, 102, 241, 0.22)
+    )
+    border-box;
+  border: 1px solid transparent;
+  border-radius: 14px;
   padding: 1.75rem;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.skill-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 56px rgba(0, 0, 0, 0.4);
 }
 .skill-title {
   font-size: 1rem;
@@ -301,7 +455,7 @@ main {
 .skill-text {
   font-size: 0.88rem;
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.45);
   margin: 0;
 }
 
@@ -319,19 +473,26 @@ main {
   grid-template-columns: 120px 1fr;
   gap: 2rem;
   padding: 1.5rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   align-items: start;
 }
 .qual-group:last-child {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 .qual-category {
-  font-size: 0.75rem;
+  font-family: "Bodoni Moda", serif;
+  font-style: italic;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: #7c6fff;
+  background: linear-gradient(135deg, #f97316, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* biome-ignore lint/nursery/useBaseline: gradient text is widely supported */
+  background-clip: text;
   margin: 0;
   padding-top: 0.15rem;
+  display: inline-block;
 }
 .qual-items {
   list-style: none;
@@ -343,7 +504,7 @@ main {
 }
 .qual-items li {
   font-size: 0.92rem;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 @media (max-width: 640px) {

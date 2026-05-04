@@ -18,6 +18,11 @@ export const prerender = true;
   <body>
     <Header />
 
+    <div class="bg-glow" aria-hidden="true">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+    </div>
+
     <main>
       <section class="hero">
         <p class="hero-label">COMPANY</p>
@@ -25,29 +30,32 @@ export const prerender = true;
       </section>
 
       <section class="section">
+        <div class="grad-line"></div>
         <div class="section-inner">
-          <table class="info-table">
-            <tbody>
-              <tr>
-                <th>商号</th>
-                <td>株式会社イロドア</td>
-              </tr>
-              <tr>
-                <th>法人番号</th>
-                <td>2430001091357</td>
-              </tr>
-              <tr>
-                <th>本店所在地</th>
-                <td>
-                  〒060-0005<br>北海道札幌市中央区南五条西１５丁目２－３<br>リズム医大前５０３号室
-                </td>
-              </tr>
-              <tr>
-                <th>設立</th>
-                <td>令和6年3月15日</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-card">
+            <table class="info-table">
+              <tbody>
+                <tr>
+                  <th>商号</th>
+                  <td>株式会社イロドア</td>
+                </tr>
+                <tr>
+                  <th>法人番号</th>
+                  <td>2430001091357</td>
+                </tr>
+                <tr>
+                  <th>本店所在地</th>
+                  <td>
+                    〒060-0005<br>北海道札幌市中央区南五条西１５丁目２－３<br>リズム医大前５０３号室
+                  </td>
+                </tr>
+                <tr>
+                  <th>設立</th>
+                  <td>令和6年3月15日</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
     </main>
@@ -57,30 +65,89 @@ export const prerender = true;
 </html>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz@0,6..96;1,6..96&display=swap");
+
 :global(html) {
-  background: #0a0a0a;
+  background: #080808;
 }
 :global(body) {
-  background: #0a0a0a;
-  color: #e8e8e8;
+  background: #080808;
+  color: #f0ece4;
 }
 :global(:root) {
-  --header-bg: #0a0a0a;
-  --header-border: rgba(255, 255, 255, 0.08);
+  --header-bg: #080808;
+  --header-border: rgba(255, 255, 255, 0.06);
   --header-text: #fff;
-  --nav-text: rgba(255, 255, 255, 0.6);
+  --nav-text: rgba(255, 255, 255, 0.5);
   --nav-text-active: #fff;
-  --nav-accent: #7c6fff;
-  --footer-bg: #0a0a0a;
-  --footer-border: rgba(255, 255, 255, 0.06);
-  --footer-text: rgba(255, 255, 255, 0.35);
+  --nav-accent: #ec4899;
+  --footer-bg: #080808;
+  --footer-border: rgba(255, 255, 255, 0.05);
+  --footer-text: rgba(255, 255, 255, 0.28);
+}
+
+/* Background glow orbs */
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(110px);
+}
+.glow-1 {
+  width: 480px;
+  height: 480px;
+  background: #6366f1;
+  opacity: 0.07;
+  top: -120px;
+  right: -100px;
+}
+.glow-2 {
+  width: 360px;
+  height: 360px;
+  background: #f97316;
+  opacity: 0.05;
+  bottom: 20%;
+  left: -80px;
 }
 
 main {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 100%;
   margin: 0;
   padding: 0;
+}
+
+/* Gradient divider */
+.grad-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(249, 115, 22, 0.4) 25%,
+    rgba(236, 72, 153, 0.4) 50%,
+    rgba(99, 102, 241, 0.4) 75%,
+    transparent
+  );
+}
+
+/* Entrance animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero {
@@ -89,11 +156,18 @@ main {
   margin: 0 auto;
 }
 .hero-label {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  color: #7c6fff;
+  font-family: "Bodoni Moda", serif;
+  font-style: italic;
+  font-size: 0.82rem;
+  letter-spacing: 0.22em;
+  background: linear-gradient(135deg, #f97316, #ec4899, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* biome-ignore lint/nursery/useBaseline: gradient text is widely supported */
+  background-clip: text;
   margin: 0 0 1.5rem 0;
+  display: inline-block;
+  animation: fadeUp 1s ease both;
 }
 .hero-title {
   font-size: clamp(2rem, 6vw, 3.5rem);
@@ -102,6 +176,8 @@ main {
   margin: 0;
   letter-spacing: -0.02em;
   line-height: 1.1;
+  animation: fadeUp 1s ease both;
+  animation-delay: 0.15s;
 }
 
 .section {
@@ -110,6 +186,24 @@ main {
 .section-inner {
   max-width: 960px;
   margin: 0 auto;
+  padding-top: 4rem;
+}
+
+.table-card {
+  background:
+    linear-gradient(#0d0d0d, #0d0d0d) padding-box,
+    linear-gradient(
+      135deg,
+      rgba(249, 115, 22, 0.25),
+      rgba(236, 72, 153, 0.25),
+      rgba(99, 102, 241, 0.25)
+    )
+    border-box;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  overflow: hidden;
+  animation: fadeUp 1s ease both;
+  animation-delay: 0.25s;
 }
 
 .info-table {
@@ -118,25 +212,25 @@ main {
 }
 .info-table th,
 .info-table td {
-  padding: 1.25rem 1.5rem;
+  padding: 1.25rem 1.75rem;
   text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   font-size: 0.95rem;
   line-height: 1.8;
   vertical-align: top;
 }
+.info-table tr:last-child th,
+.info-table tr:last-child td {
+  border-bottom: none;
+}
 .info-table th {
   width: 160px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.35);
   white-space: nowrap;
 }
 .info-table td {
-  color: #e8e8e8;
-}
-.info-table tr:first-child th,
-.info-table tr:first-child td {
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: #f0ece4;
 }
 
 @media (max-width: 640px) {
